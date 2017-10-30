@@ -1,0 +1,17 @@
+{
+  "env": {
+    "node": true
+  },
+  "root": true,
+  "extends": "airbnb-base",
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "rules": {
+    "max-len": ["error", 140, 4],
+    "no-param-reassign": 0,
+    "no-plusplus": 0,
+    "func-names": 0,
+    "no-bitwise": 0
+  }
+}

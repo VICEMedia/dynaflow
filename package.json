@@ -14,5 +14,15 @@
   "bugs": {
     "url": "https://github.com/VICEMedia/dynaflow/issues"
   },
-  "homepage": "https://github.com/VICEMedia/dynaflow#readme"
+  "homepage": "https://github.com/VICEMedia/dynaflow#readme",
+  "devDependencies": {
+    "eslint": "^4.10.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.8.0"
+  },
+  "dependencies": {
+    "aws-sdk": "^2.141.0",
+    "wise-promise": "^1.1.1",
+    "wise-river": "^0.3.2"
+  }
 }
