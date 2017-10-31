@@ -1,6 +1,7 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "es6": true
   },
   "root": true,
   "extends": "airbnb-base",
@@ -8,10 +9,31 @@
     "sourceType": "script"
   },
   "rules": {
-    "max-len": ["error", 140, 4],
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore"
+    }],
+    "no-use-before-define": 0,
+    "no-restricted-syntax": 0,
+    "no-mixed-operators": 0,
+    "no-confusing-arrow": 0,
     "no-param-reassign": 0,
-    "no-plusplus": 0,
-    "func-names": 0,
-    "no-bitwise": 0
+    "no-sequences": 0,
+    "no-continue": 0,
+    "no-bitwise": 0,
+    "no-void": 0,
+    "quote-props": ["error", "consistent-as-needed"],
+    "strict": ["error", "global"],
+    "max-len": ["error", 140, 4],
+    "import/newline-after-import": 0,
+    "import/no-dynamic-require": 0,
+    "lines-around-directive": 0,
+    "function-paren-newline": 0,
+    "consistent-return": 0,
+    "arrow-body-style": 0,
+    "global-require": 0
   }
 }

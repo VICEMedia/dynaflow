@@ -1,16 +1,16 @@
 {
   "name": "dynaflow",
   "version": "1.0.0",
-  "description": "",
+  "description": "DynamoDB abstraction using rivers",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "$(npm bin)/eslint . && $(npm bin)/mocha --exit"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/VICEMedia/dynaflow.git"
   },
-  "author": "",
+  "author": "Joshua Wise <joshuathomaswise@gmail.com>",
   "bugs": {
     "url": "https://github.com/VICEMedia/dynaflow/issues"
   },
@@ -24,5 +24,13 @@
     "aws-sdk": "^2.141.0",
     "wise-promise": "^1.1.1",
     "wise-river": "^0.3.2"
-  }
+  },
+  "keywords": [
+    "observables",
+    "rivers",
+    "streams",
+    "dynamo",
+    "dynamodb",
+    "aws"
+  ]
 }
