@@ -23,6 +23,7 @@
     "no-param-reassign": 0,
     "no-sequences": 0,
     "no-continue": 0,
+    "no-plusplus": 0,
     "no-bitwise": 0,
     "no-void": 0,
     "quote-props": ["error", "consistent-as-needed"],
