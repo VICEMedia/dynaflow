@@ -20,6 +20,7 @@
     "no-restricted-syntax": 0,
     "no-mixed-operators": 0,
     "no-confusing-arrow": 0,
+    "no-nested-ternary": 0,
     "no-param-reassign": 0,
     "no-sequences": 0,
     "no-continue": 0,
