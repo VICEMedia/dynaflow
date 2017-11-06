@@ -1,6 +1,6 @@
 {
   "name": "dynaflow",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "DynamoDB abstraction using rivers",
   "main": "index.js",
   "scripts": {
