@@ -3,6 +3,7 @@ const { DynamoDB } = require('aws-sdk');
 const wrapped = require('./lib/wrapped');
 const paginated = require('./lib/paginated');
 const batchWriteItem = require('./lib/batch_write_item');
+const { PutRequest, DeleteRequest } = require('./lib/request');
 
 /*
   The methods found on instances of DynamoDB are not available at
@@ -18,3 +19,5 @@ function Dynaflow(options) {
 }
 
 module.exports = Dynaflow;
+module.exports.PutRequest = PutRequest;
+module.exports.DeleteRequest = DeleteRequest;
