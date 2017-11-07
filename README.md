@@ -6,7 +6,7 @@ For all your flow needs.
 
 ## new Dynaflow(*options*)
 
-Creates a new DynamoDB client. The `options` are passed directly to the [aws-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).
+Creates a new DynamoDB client. The given `options` are used directly by the [aws-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).
 
 ### .createTable(*params*) -> promise
 
