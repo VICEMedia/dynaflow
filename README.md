@@ -66,7 +66,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 ### .query(*params*) -> *river*
 
-Performs a [`Query` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property) by passing the `params` to [ask-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property), automatically paginating through each page in the result set. The returned [river](https://github.com/JoshuaWise/wise-river) contains each result object of each request.
+Performs a [Query operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property) by passing the `params` to [ask-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property), automatically paginating through each page in the result set. The returned [river](https://github.com/JoshuaWise/wise-river) contains each result object of each request.
 
 If the river is rejected or cancelled, iterating will stop and no more requests will be made.
 
@@ -86,21 +86,21 @@ db.query(params)
   .forEach(logItem)
   .drain()
   .then(() => {
-    console.log('All done!');
+    console.log('all done!');
   });
 ```
 
 ### .scan(*params*) -> *river*
 
-Similar to [`.query()`](#queryparams---river), but performs a [`Scan` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
+Similar to [`.query()`](#queryparams---river), but performs a [Scan operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
 
 ### .listTables(*params*) -> *river*
 
-Similar to [`.query()`](#queryparams---river), but performs a [`ListTables` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property) instead.
+Similar to [`.query()`](#queryparams---river), but performs a [ListTables operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property) instead.
 
 ### .listTagsOfResource(*params*) -> *river*
 
-Similar to [`.query()`](#queryparams---river), but performs a [`ListTagsOfResource` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
+Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResource operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
 ### .batchWriteItem(*requests*, [*params*]) -> *river*
 
