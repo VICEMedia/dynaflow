@@ -106,7 +106,7 @@ Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResourc
 
 Given a [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batch requests to DynamoDB.
 
-Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result object has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If the request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
+Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If the request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
 
 Each result object will always have an empty `UnprocessedItems` map, because this method automatically handles retries for you.
 
