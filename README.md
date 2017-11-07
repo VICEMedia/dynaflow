@@ -86,7 +86,7 @@ Similar to [`.query()`](#queryparams---river), but performs a [`ListTagsOfResour
 
 ### .batchWriteItem(*input*, [*params*]) -> *river*
 
-Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-dynaflowputrequesttablename-item---putrequest) and [DeleteRequests](#new-dynaflowdeleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batched write requests to DynamoDB.
+Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batched write requests to DynamoDB.
 
 ## new PutRequest(*tableName*, *item*) -> *PutRequest*
 
