@@ -72,6 +72,24 @@ If the river is rejected or cancelled, iterating will stop and no more requests 
 
 If the `itemsOnly` option is `true`, the river will contain each individual table item, rather than the entire result objects.
 
+```js
+const params = {
+  TableName: 'MyTable',
+  KeyConditionExpression: 'myPrimaryKey = :val',
+  ExpressionAttributeValues: { ':val': { B: 'hZn6NqO18x8=' } },
+  itemsOnly: true
+};
+
+db.query(params)
+  .filter(validateItem)
+  .map(transformItem)
+  .forEach(logItem)
+  .drain()
+  .then(() => {
+    console.log('All done!');
+  });
+```
+
 ### .scan(*params*) -> *river*
 
 Similar to [`.query()`](#queryparams---river), but performs a [`Scan` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
@@ -84,9 +102,26 @@ Similar to [`.query()`](#queryparams---river), but performs a [`ListTables` oper
 
 Similar to [`.query()`](#queryparams---river), but performs a [`ListTagsOfResource` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
-### .batchWriteItem(*input*, [*params*]) -> *river*
+### .batchWriteItem(*requests*, [*params*]) -> *river*
 
-Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batched write requests to DynamoDB.
+Given a [river](https://github.com/JoshuaWise/wise-river) containing individual [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batch requests to DynamoDB.
+
+Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result object has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If the request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
+
+Each result object will always have an empty `UnprocessedItems` map, because this method automatically handles retries for you.
+
+```js
+const { PutRequest, DeleteRequest } = require('dynaflow');
+const River = require('wise-river');
+
+const requests = [new PutRequest(...), new DeleteRequest(...)];
+
+db.batchWriteItem(River.from(requests))
+  .map(batch => batch.send())
+  .consume(({ count }) => {
+    console.log(`Processed a batch of ${count} items!`);
+  });
+```
 
 ## new PutRequest(*tableName*, *item*) -> *PutRequest*
 
