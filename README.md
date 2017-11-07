@@ -66,7 +66,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 ### .query(*params*) -> *river*
 
-Performs a [Query operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property) by passing the `params` to [ask-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property), automatically paginating through each page in the result set. The returned [river](https://github.com/JoshuaWise/wise-river) contains each result object of each request.
+Performs a [Query operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property) by passing the `params` to [ask-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property), automatically paginating through each page in the result set. The returned [`river`](https://github.com/JoshuaWise/wise-river) contains each result object of each request.
 
 ```js
 const params = {
@@ -86,9 +86,9 @@ db.query(params)
   });
 ```
 
-If the river is rejected or cancelled, iterating will stop and no more requests will be made.
+If the `river` is rejected or cancelled, iterating will stop and no more requests will be made.
 
-If the `itemsOnly` option is `true`, the river will contain each individual table item, rather than the entire result objects.
+If the `itemsOnly` option is `true`, the `river` will contain each individual table item, rather than the entire result objects.
 
 ### .scan(*params*) -> *river*
 
@@ -104,7 +104,7 @@ Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResourc
 
 ### .batchWriteItem(*requests*, [*params*]) -> *river*
 
-Given a [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batch requests to DynamoDB.
+Given a [`river`](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a `river` of *batch objects* for making batch requests to DynamoDB.
 
 Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
 
