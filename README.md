@@ -94,6 +94,7 @@ Creates and returns an object for making `Put` requests with [`.batchWriteItem()
 
 ```js
 const { PutRequest } = require('dynaflow');
+
 const put = new PutRequest('MyTable', {
   myPrimaryKey: { B: 'hZn6NqO18x8=' },
   foo: { S: 'abc' },
@@ -108,6 +109,7 @@ Creates and returns an object for making `Delete` requests with [`.batchWriteIte
 
 ```js
 const { DeleteRequest } = require('dynaflow');
+
 const del = new DeleteRequest('MyTable', {
   myPrimaryKey: { B: 'hZn6NqO18x8=' }
 });
