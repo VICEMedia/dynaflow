@@ -86,11 +86,11 @@ Similar to [`.query()`](#queryparams---river), but performs a [`ListTagsOfResour
 
 ### .batchWriteItem(*input*, [*params*]) -> *river*
 
-Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-DynaflowPutRequesttableName-item---PutRequest) and [DeleteRequests](#new-DynaflowDeleteRequesttableName-key---DeleteRequest), returns a river of *batch objects* for making batched write requests to DynamoDB.
+Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-dynaflowputrequesttablename-item---putrequest) and [DeleteRequests](#new-dynaflowdeleterequesttablename-key---deleterequest), returns a river of *batch objects* for making batched write requests to DynamoDB.
 
-## new Dynaflow.PutRequest(*tableName*, *item*) -> *PutRequest*
+## new PutRequest(*tableName*, *item*) -> *PutRequest*
 
-An object for making PUT requests with [`.batchWriteItem()`](#batchWriteIteminput-params---river).
+An object for making PUT requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
 
 ```js
 const { PutRequest } = require('dynaflow');
@@ -102,9 +102,9 @@ const put = new PutRequest('MyTable', {
 });
 ```
 
-## new Dynaflow.DeleteRequest(*tableName*, *key*) -> *DeleteRequest*
+## new DeleteRequest(*tableName*, *key*) -> *DeleteRequest*
 
-An object for making DELETE requests with [`.batchWriteItem()`](#batchWriteIteminput-params---river).
+An object for making DELETE requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
 
 ```js
 const { DeleteRequest } = require('dynaflow');
