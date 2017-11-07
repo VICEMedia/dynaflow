@@ -68,10 +68,6 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 Performs a [Query operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property) by passing the `params` to [ask-sdk](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#query-property), automatically paginating through each page in the result set. The returned [river](https://github.com/JoshuaWise/wise-river) contains each result object of each request.
 
-If the river is rejected or cancelled, iterating will stop and no more requests will be made.
-
-If the `itemsOnly` option is `true`, the river will contain each individual table item, rather than the entire result objects.
-
 ```js
 const params = {
   TableName: 'MyTable',
@@ -89,6 +85,10 @@ db.query(params)
     console.log('all done!');
   });
 ```
+
+If the river is rejected or cancelled, iterating will stop and no more requests will be made.
+
+If the `itemsOnly` option is `true`, the river will contain each individual table item, rather than the entire result objects.
 
 ### .scan(*params*) -> *river*
 
