@@ -90,7 +90,7 @@ Given an `input` [river](https://github.com/JoshuaWise/wise-river) of [PutReques
 
 ## new PutRequest(*tableName*, *item*) -> *PutRequest*
 
-An object for making PUT requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
+Creates and returns an object for making `Put` requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
 
 ```js
 const { PutRequest } = require('dynaflow');
@@ -104,7 +104,7 @@ const put = new PutRequest('MyTable', {
 
 ## new DeleteRequest(*tableName*, *key*) -> *DeleteRequest*
 
-An object for making DELETE requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
+Creates and returns an object for making `Delete` requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
 
 ```js
 const { DeleteRequest } = require('dynaflow');
