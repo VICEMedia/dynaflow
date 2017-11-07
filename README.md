@@ -109,9 +109,6 @@ Given a [`river`](https://github.com/JoshuaWise/wise-river) of [PutRequests](#ne
 Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
 
 ```js
-const { PutRequest, DeleteRequest } = require('dynaflow');
-const River = require('wise-river');
-
 const requests = [new PutRequest(...), new DeleteRequest(...)];
 
 db.batchWriteItem(River.from(requests))
