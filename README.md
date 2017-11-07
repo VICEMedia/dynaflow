@@ -70,7 +70,7 @@ Performs a [`Query` operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/lates
 
 If the river is rejected or cancelled, iterating will stop and no more requests will be made.
 
-If the `itemsOnly` option is `true`, the river will contain each individual table item, rather than the entire result objects.
+If `params.itemsOnly` is `true`, the river will contain each individual table item, rather than the entire result objects.
 
 ### .scan(*params*) -> *river*
 
