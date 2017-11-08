@@ -4,7 +4,7 @@
   "description": "DynamoDB abstraction using rivers",
   "main": "index.js",
   "scripts": {
-    "start-dynamo-local": "", 
+    "start-dynamo-local": "",
     "test": "eslint . && mocha"
   },
   "repository": {
@@ -22,7 +22,9 @@
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "sinon": "^4.1.2",
+    "sinon-chai": "^2.14.0"
   },
   "dependencies": {
     "aws-sdk": "^2.141.0",
