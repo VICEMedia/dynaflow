@@ -4,7 +4,8 @@
   "description": "DynamoDB abstraction using rivers",
   "main": "index.js",
   "scripts": {
-    "test": "$(npm bin)/eslint . && $(npm bin)/mocha --exit"
+    "start-dynamo-local": "", 
+    "test": "eslint . && mocha"
   },
   "repository": {
     "type": "git",
@@ -16,15 +17,15 @@
   },
   "homepage": "https://github.com/VICEMedia/dynaflow#readme",
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.8.0"
+    "eslint-plugin-import": "^2.8.0",
+    "mocha": "^4.0.1"
   },
   "dependencies": {
     "aws-sdk": "^2.141.0",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "mocha": "^4.0.1",
     "wise-promise": "^1.1.1",
     "wise-river": "^0.3.2"
   },

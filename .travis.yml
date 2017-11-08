@@ -5,12 +5,6 @@ node_js:
 - 6
 - 7
 - 8
-env:
-  global:
-  - AWS_DEFAULT_REGION=us-east-1
-  - AWS_ACCESS_KEY_ID=fake
-  - AWS_SECRET_ACCESS_KEY=fake
-  - DYNAMO_DB_ENDPOINT=http://127.0.0.1:8000
 before_script:
   - wget https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2017-04-22_beta.tar.gz -O /tmp/dynamodb_local_latest.tar.gz
   - tar -xzf /tmp/dynamodb_local_latest.tar.gz -C /tmp
