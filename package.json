@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start-dynamo-local": "",
+    "mocha": "mocha",
     "test": "eslint . && mocha"
   },
   "repository": {
