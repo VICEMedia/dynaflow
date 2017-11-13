@@ -4,7 +4,6 @@
   "description": "DynamoDB abstraction using rivers",
   "main": "index.js",
   "scripts": {
-    "start-dynamo-local": "",
     "mocha": "nyc mocha",
     "test": "eslint . && npm run mocha",
     "coveralls": "npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info | coveralls --verbose"
