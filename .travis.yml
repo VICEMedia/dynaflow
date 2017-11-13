@@ -5,17 +5,17 @@ node_js:
 - 6
 - 7
 - 8
-env:
-  global:
-  - AWS_DEFAULT_REGION=us-east-1
-  - AWS_ACCESS_KEY_ID=fake
-  - AWS_SECRET_ACCESS_KEY=fake
-  - DYNAMO_DB_ENDPOINT=http://127.0.0.1:8000
 before_script:
   - wget https://s3-us-west-2.amazonaws.com/dynamodb-local/dynamodb_local_2017-04-22_beta.tar.gz -O /tmp/dynamodb_local_latest.tar.gz
   - tar -xzf /tmp/dynamodb_local_latest.tar.gz -C /tmp
   - java -Djava.library.path=/tmp/DynamoDBLocal_lib -jar /tmp/DynamoDBLocal.jar -inMemory &
   - "timeout=0; until curl localhost:8000 > /dev/null 2>&1 || [ $timeout -eq 60 ]; do echo 'waiting for dynamo: '$timeout; sleep 2; timeout=$((timeout+1)); done"
+script:
+- npm run coveralls
 cache:
   directories:
   - node_modules
+env:
+  global:
+    - COVERALLS_SERVICE_NAME=travis-pro
+    - secure: XmENW/6BfvIQgUiP1dErqbG3Sp4QiCH9T/qFwsZKqKT/EaL2dyj/YdXDc8WoKCPHN/ir1R2UVwBv+MqTJnKxmsSxKP1Uw6ytRkGxmWClHTb/XX/3hSY0Fn1AnY2zsWWD8foRnFvCBFENts1NkFIVAtsKN+fIzUZLWXI3P2bTBqSYNDVnizEKoobSrROf8lrX2gJYIfeYD1BfDEwS0cyzhLjWuYbBs5/tEBd/sp5tE5OOvVVMs4yC9xbmYR1OLGBE0PFvJncyWp+MNvG8kJ4NsnDZTm4RfaPmMQOQXD/iWX4FtlzX67KBwHrFYMms+8IfkUeQqGOGszRBij6ZohoopWMYxjCDzdEd561NPCmTg7IcHSSNk5P6jyWumjD88cHzGq1D2DT0QTFNuGtMFqxfejNDTIA3OObHAC5wYDLCOggRYSlqgPQ6Fbmbau00jRz0G+nbTnDVVHbg97uYSu+id9v0AWz4oI3X9PcBdJfQoqsZkwIDxyKQ1YrCK53j2lUH6rHWdsDD4BgvVkdeTugDo3ptEBCYPde2+6VmAwAQuRmP2j7cRZhVnZkd6rTmIo6xftKNp1gh4z+UVIBczRc6xMG7ZsKBu36N5DLjXLFTwrtIyYCE4weCOAv3kGmjmOycmBdnd3K+/JpPh9euSCR6fBndlKE4P0ZAGSQg5ymxJk4=
