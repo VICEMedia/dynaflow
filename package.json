@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "start-dynamo-local": "",
-    "mocha": "mocha",
-    "test": "eslint . && mocha"
+    "mocha": "nyc mocha",
+    "test": "eslint . && npm run mocha",
+    "coveralls": "npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info | coveralls --verbose"
   },
   "repository": {
     "type": "git",
@@ -20,10 +21,12 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.0",
     "eslint": "^4.10.0",
     "eslint-config-airbnb-base": "^12.1.0",
     "eslint-plugin-import": "^2.8.0",
     "mocha": "^4.0.1",
+    "nyc": "^11.3.0",
     "sinon": "^4.1.2",
     "sinon-chai": "^2.14.0"
   },
