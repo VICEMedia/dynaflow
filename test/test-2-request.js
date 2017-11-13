@@ -8,7 +8,7 @@ const batchWriteItem = Promise.promisify(dynaflow.db.batchWriteItem).bind(dynafl
 
 const Requests = [PutRequest, DeleteRequest];
 
-describe.only('request', function () {
+describe('request', function () {
   describe('PutRequest', function () {
     it('adds the item to the proper field', function () {
       expect(PutRequest('table', { foo: 'bar' }).Item).to.deep.equal({ foo: 'bar' });
@@ -49,7 +49,7 @@ describe.only('request', function () {
       });
     });
 
-    it.only('batches into valid requests', function () {
+    it('batches into valid requests', function () {
       const batch = {};
       PutRequest('testing1', { id: { S: 'abc' }, timestamp: { N: '1' } }).addToBatch(batch);
       PutRequest('testing1', { id: { S: 'abc' }, timestamp: { N: '2' } }).addToBatch(batch);
