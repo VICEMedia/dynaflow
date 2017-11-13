@@ -13,6 +13,6 @@ beforeEach(() => {
   return clearDatabase();
 });
 
-afterEach(() => {
+after(() => {
   return clearDatabase();
 });

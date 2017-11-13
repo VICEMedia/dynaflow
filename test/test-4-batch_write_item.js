@@ -50,7 +50,9 @@ describe('batch_write_item', function () {
   // local so here we'll use a mock instead
   describe('UnprocessedItems', function () {
     beforeEach(function () {
+      this.requests = [];
       sinon.stub(dynaflow.db, 'batchWriteItem').callsFake(({ RequestItems }, cb) => {
+        this.requests.push(RequestItems);
         const UnprocessedItems = {};
         // Don't process half of the requested items until there is only one left
         const requested = RequestItems.testing;
@@ -68,72 +70,57 @@ describe('batch_write_item', function () {
     });
 
     it('handles unprocessed items', function () {
-      let callCount = 0;
       return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
         range(10).forEach((i) => {
           write(new PutRequest('testing', { id: { S: 'abc' }, timestamp: { N: `${i}` } }));
         });
         resolve();
-      })).consume(batch => batch.send().then((res) => {
-        callCount++;
-        switch (callCount) {
-          case 1:
-            expect(res).to.deep.equal({
-              count: 5,
-              UnprocessedItems: {
-                testing: [
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '5' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '6' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '7' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
-                ],
-              },
-            });
-            break;
-          case 2:
-            expect(res).to.deep.equal({
-              count: 2,
-              UnprocessedItems: {
-                testing: [
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '7' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
-                ],
-              },
-            });
-            break;
-          case 3:
-            expect(res).to.deep.equal({
-              count: 1,
-              UnprocessedItems: {
-                testing: [
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
-                ],
-              },
-            });
-            break;
-          case 4:
-            expect(res).to.deep.equal({
-              count: 1,
-              UnprocessedItems: {
-                testing: [
-                  { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
-                ],
-              },
-            });
-            break;
-          case 5:
-            expect(res).to.deep.equal({
-              count: 1,
-              UnprocessedItems: {},
-            });
-            break;
-          default:
-            throw new Error('Called an unexpected number of times');
-        }
-      }));
+      })).consume(batch => batch.send())
+        .then(() => {
+          expect(this.requests).to.deep.equal([
+            {
+              testing: [
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '0' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '1' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '2' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '3' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '4' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '5' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '6' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '7' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
+              ],
+            },
+            {
+              testing: [
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '5' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '6' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '7' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
+              ],
+            },
+            {
+              testing: [
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '7' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
+              ],
+            },
+            {
+              testing: [
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '8' } } } },
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
+              ],
+            },
+            {
+              testing: [
+                { PutRequest: { Item: { id: { S: 'abc' }, timestamp: { N: '9' } } } },
+              ],
+            },
+          ]);
+        });
     });
   });
 });

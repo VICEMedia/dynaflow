@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "mocha": "nyc mocha",
-    "test": "eslint . && npm run mocha",
+    "test": "eslint --cache . && npm run mocha",
     "coveralls": "npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info | coveralls --verbose"
   },
   "repository": {

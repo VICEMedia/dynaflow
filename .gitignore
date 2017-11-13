@@ -36,3 +36,5 @@ node_modules
 
 # Project specific
 .DS_Store
+
+.eslintcache

@@ -36,13 +36,6 @@ describe('request', function () {
       });
     });
 
-    it('sets the ', function () {
-      Requests.forEach((req) => {
-        expect(() => req('table')).to.throw(TypeError);
-        expect(() => req('table', Promise.resolve())).to.throw(TypeError);
-      });
-    });
-
     it('sets the table name', function () {
       Requests.forEach((req) => {
         expect(req('table', {}).TableName).to.equal('table');
