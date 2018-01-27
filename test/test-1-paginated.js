@@ -83,8 +83,8 @@ describe('paginated', function () {
     });
 
     it('respects the limit option', function () {
-      return dynaflow.scan({ TableName: 'testing', itemsOnly: true, Limit: 20 }).all().then((res) => {
-        expect(res).to.have.lengthOf(20);
+      return dynaflow.scan({ TableName: 'testing', itemsOnly: true, Limit: 35 }).all().then((res) => {
+        expect(res).to.have.lengthOf(35);
         res.forEach((element) => {
           expect(element.id.S).to.exist;
           expect(element.timestamp.N).to.exist;
