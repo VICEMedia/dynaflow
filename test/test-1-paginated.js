@@ -12,7 +12,7 @@ describe('paginated', function () {
     });
 
     it('lists all tables using pagination', function () {
-      return dynaflow.listTables({ itemsOnly: false }).all().then((res) => {
+      return dynaflow.listTables({ ItemsOnly: false }).all().then((res) => {
         // Paginated results
         expect(res).to.have.lengthOf(1);
         const info = res[0];
@@ -26,7 +26,7 @@ describe('paginated', function () {
     });
 
     it('lists all tables as items only', function () {
-      dynaflow.listTables({ itemsOnly: true }).all().then((res) => {
+      dynaflow.listTables({ ItemsOnly: true }).all().then((res) => {
         // Item only results
         expect(res).to.have.lengthOf(50);
         range(50).forEach((i) => {
@@ -53,7 +53,7 @@ describe('paginated', function () {
     });
 
     it('scans a table over multiple calls using pagination', function () {
-      return dynaflow.scan({ TableName: 'testing', itemsOnly: false }).all().then((res) => {
+      return dynaflow.scan({ TableName: 'testing', ItemsOnly: false }).all().then((res) => {
         let count = 0;
         expect(res).to.have.length.greaterThan(1);
         res.forEach((page) => {
@@ -70,7 +70,7 @@ describe('paginated', function () {
     });
 
     it('scans a table over multiple calls using items only', function () {
-      return dynaflow.scan({ TableName: 'testing', itemsOnly: true }).all().then((res) => {
+      return dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all().then((res) => {
         expect(res).to.have.lengthOf(40);
         res.forEach((element) => {
           expect(element.id.S).to.exist;
@@ -101,7 +101,7 @@ describe('paginated', function () {
         TableName: 'testing',
         KeyConditionExpression: 'id = :val',
         ExpressionAttributeValues: { ':val': { S: '0' } },
-        itemsOnly: false,
+        ItemsOnly: false,
       }).all().then((res) => {
         let count = 0;
         expect(res).to.have.length.greaterThan(1);
@@ -123,7 +123,7 @@ describe('paginated', function () {
         TableName: 'testing',
         KeyConditionExpression: 'id = :val',
         ExpressionAttributeValues: { ':val': { S: '0' } },
-        itemsOnly: true,
+        ItemsOnly: true,
       }).all().then((res) => {
         expect(res).to.have.lengthOf(30);
         res.forEach((element) => {

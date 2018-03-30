@@ -22,7 +22,7 @@ describe('batch_write_item', function () {
     })).consume(batch => batch.send().then((res) => {
       expect(res).to.deep.equal({ count: 25, UnprocessedItems: {} });
     }))
-      .then(() => dynaflow.scan({ TableName: 'testing', itemsOnly: true }).all())
+      .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all())
       .then((res) => {
         expect(res).to.have.lengthOf(50);
         range(50).forEach((i) => {
@@ -35,13 +35,13 @@ describe('batch_write_item', function () {
     return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
       write(new PutRequest('testing', { id: { S: 'abc' }, timestamp: { N: '1' } }));
       return Promise.after(120)
-        .then(() => dynaflow.scan({ TableName: 'testing', itemsOnly: true }).all()
+        .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all()
           .then((res) => {
             expect(res).to.have.lengthOf(1);
             expect(res[0]).to.deep.equal({ id: { S: 'abc' }, timestamp: { N: '1' } });
           }))
         .then(resolve);
-    }), { timeout: 100 }).consume(batch => batch.send().then((res) => {
+    }), { Timeout: 100 }).consume(batch => batch.send().then((res) => {
       expect(res).to.deep.equal({ count: 1, UnprocessedItems: {} });
     }));
   });

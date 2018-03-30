@@ -16,7 +16,7 @@ const params = {
   TableName: 'MyTable',
   KeyConditionExpression: 'myPrimaryKey = :val',
   ExpressionAttributeValues: { ':val': { B: 'hZn6NqO18x8=' } },
-  itemsOnly: true
+  ItemsOnly: true,
 };
 
 db.query(params)
@@ -31,7 +31,7 @@ db.query(params)
 
 If the `river` is rejected or cancelled, iterating will stop and no more requests will be made.
 
-If the `itemsOnly` option is `true`, the `river` will contain each individual table item, rather than the entire result objects.
+If the `ItemsOnly` option is `true`, the `river` will contain each individual table item, rather than the entire result objects.
 
 ### .scan(*params*) -> *river*
 
@@ -63,7 +63,7 @@ db.batchWriteItem(River.from(requests))
 
 Each result object will always have an empty `UnprocessedItems` field, because this method automatically handles retries for you.
 
-If the `timeout` option is given, incomming requests will not be buffered for longer than the specified number of milliseconds.
+If the `Timeout` option is given, incomming requests will not be buffered for longer than the specified number of milliseconds.
 
 ### .createTable(*params*) -> *promise*
 
