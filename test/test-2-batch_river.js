@@ -68,7 +68,7 @@ describe('batch_river', function () {
         expect(batch).to.deep.equal({
           foo1: [{ PutRequest: { Item: 1 } }],
           foo2: [{ PutRequest: { Item: 2 } }],
-          foo3: [{ PutRequest: { Item: 1 } }]
+          foo3: [{ PutRequest: { Item: 1 } }],
         });
         feedback([{ TableName: 'newFoo', Item: 1 }]);
       } else {
