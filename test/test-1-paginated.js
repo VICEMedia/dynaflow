@@ -6,6 +6,7 @@ const { dynaflow, createTestingTable, range } = require('./helpers');
 describe('paginated', function () {
   describe('listTables', function () {
     beforeEach(function () {
+      this.timeout(10000);
       return Promise.all(range(50).map(i => (
         createTestingTable({ TableName: `table${i}` })
       )));
@@ -39,6 +40,7 @@ describe('paginated', function () {
 
   describe('scan', function () {
     beforeEach(function () {
+      this.timeout(10000);
       return createTestingTable({ TableName: 'testing' })
         .then(() => Promise.all(range(40).map(i => (
           dynaflow.putItem({
@@ -79,10 +81,22 @@ describe('paginated', function () {
         });
       });
     });
+
+    it('respects the limit option', function () {
+      return dynaflow.scan({ TableName: 'testing', itemsOnly: true, Limit: 35 }).all().then((res) => {
+        expect(res).to.have.lengthOf(35);
+        res.forEach((element) => {
+          expect(element.id.S).to.exist;
+          expect(element.timestamp.N).to.exist;
+          expect(element.data.S).to.exist;
+        });
+      });
+    });
   });
 
   describe('query', function () {
     beforeEach(function () {
+      this.timeout(10000);
       return createTestingTable({ TableName: 'testing' })
         .then(() => Promise.all(range(60).map(i => (
           dynaflow.putItem({
@@ -126,6 +140,23 @@ describe('paginated', function () {
         ItemsOnly: true,
       }).all().then((res) => {
         expect(res).to.have.lengthOf(30);
+        res.forEach((element) => {
+          expect(element.id).to.deep.equal({ S: '0' });
+          expect(element.timestamp.N).to.exist;
+          expect(element.data.S).to.exist;
+        });
+      });
+    });
+
+    it('respects the limit option', function () {
+      return dynaflow.query({
+        TableName: 'testing',
+        KeyConditionExpression: 'id = :val',
+        ExpressionAttributeValues: { ':val': { S: '0' } },
+        Limit: 20,
+        itemsOnly: true,
+      }).all().then((res) => {
+        expect(res).to.have.lengthOf(20);
         res.forEach((element) => {
           expect(element.id).to.deep.equal({ S: '0' });
           expect(element.timestamp.N).to.exist;
