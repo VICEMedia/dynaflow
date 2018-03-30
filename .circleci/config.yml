@@ -13,7 +13,7 @@ version: 2
 jobs:
   build-node-8:
     docker:
-      - image: node:8.9.3
+      - image: node:8
       - image: dwmkerr/dynamodb
     working_directory: ~/repo
     steps:
@@ -21,12 +21,7 @@ jobs:
       - restore_cache:
           keys:
             - npm-dynaflow-{{ checksum "package.json" }}
-      - run:
-          name: Test
-          environment:
-            COVERALLS_SERVICE_NAME: travis-pro
-          command: |
-            npm install && npm run coveralls
+      - run: npm install && npm run coveralls
       - save_cache:
           key: npm-dynaflow-{{ checksum "package.json" }}
           paths:
