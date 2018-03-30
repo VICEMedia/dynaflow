@@ -49,15 +49,15 @@ Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResourc
 
 Given a [`river`](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a `river` of *batch objects* for making batch requests to DynamoDB.
 
-Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
+Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `Count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `Count` field, indicating how many requests failed.
 
 ```js
 const requests = [new PutRequest(...), new DeleteRequest(...)];
 
 db.batchWriteItem(River.from(requests))
   .map(batch => batch.send())
-  .consume(({ count }) => {
-    console.log(`Processed a batch of ${count} items!`);
+  .consume(({ Count }) => {
+    console.log(`Processed a batch of ${Count} items!`);
   });
 ```
 

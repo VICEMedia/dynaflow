@@ -20,7 +20,7 @@ describe('batch_write_item', function () {
       });
       resolve();
     })).consume(batch => batch.send().then((res) => {
-      expect(res).to.deep.equal({ count: 25, UnprocessedItems: {} });
+      expect(res).to.deep.equal({ Count: 25, UnprocessedItems: {} });
     }))
       .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all())
       .then((res) => {
@@ -42,7 +42,7 @@ describe('batch_write_item', function () {
           }))
         .then(resolve);
     }), { Timeout: 100 }).consume(batch => batch.send().then((res) => {
-      expect(res).to.deep.equal({ count: 1, UnprocessedItems: {} });
+      expect(res).to.deep.equal({ Count: 1, UnprocessedItems: {} });
     }));
   });
 
