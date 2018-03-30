@@ -3,7 +3,6 @@ const { DynamoDB } = require('aws-sdk');
 const wrapped = require('./lib/wrapped');
 const paginated = require('./lib/paginated');
 const batchWriteItem = require('./lib/batch_write_item');
-const { PutRequest, DeleteRequest } = require('./lib/request');
 
 /*
   The methods found on instances of DynamoDB are not available at
@@ -15,9 +14,7 @@ function Dynaflow(options) {
   this.db = new DynamoDB(options);
   wrapped(this); // Attach promise-returning methods
   paginated(this); // Attach river-returning methods
-  batchWriteItem(this); // Attach agent-returning method
+  batchWriteItem(this); // Attach river-returning method
 }
 
 module.exports = Dynaflow;
-module.exports.PutRequest = PutRequest;
-module.exports.DeleteRequest = DeleteRequest;
