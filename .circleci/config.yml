@@ -8,12 +8,56 @@ workflows:
             branches:
               ignore:
                 - master
+      - build-node-7:
+          filters:
+            branches:
+              ignore:
+                - master
+      - build-node-6:
+          filters:
+            branches:
+              ignore:
+                - master
 
 version: 2
 jobs:
   build-node-8:
     docker:
       - image: node:8.9.3
+      - image: dwmkerr/dynamodb
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-dynaflow-{{ checksum "package.json" }}
+      - run: npm install && npm install -g nyc
+      - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
+      - save_cache:
+          key: npm-dynaflow-{{ checksum "package.json" }}
+          paths:
+            - "./node_modules"
+
+  build-node-7:
+    docker:
+      - image: node:7
+      - image: dwmkerr/dynamodb
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - npm-dynaflow-{{ checksum "package.json" }}
+      - run: npm install && npm install -g nyc
+      - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
+      - save_cache:
+          key: npm-dynaflow-{{ checksum "package.json" }}
+          paths:
+            - "./node_modules"
+
+  build-node-6:
+    docker:
+      - image: node:6
       - image: dwmkerr/dynamodb
     working_directory: ~/repo
     steps:
