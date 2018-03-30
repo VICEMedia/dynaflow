@@ -26,7 +26,7 @@ jobs:
           environment:
             COVERALLS_SERVICE_NAME: travis-pro
           command: |
-            npm run coveralls
+            npm install && npm run coveralls
       - save_cache:
           key: npm-dynaflow-{{ checksum "package.json" }}
           paths:
