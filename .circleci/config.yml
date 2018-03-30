@@ -21,7 +21,8 @@ jobs:
       - restore_cache:
           keys:
             - npm-dynaflow-{{ checksum "package.json" }}
-      - run: npm install && npm run coveralls
+      - run: npm install
+      - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
       - save_cache:
           key: npm-dynaflow-{{ checksum "package.json" }}
           paths:
