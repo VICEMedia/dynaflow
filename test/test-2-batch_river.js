@@ -21,7 +21,7 @@ describe('batch_river', function () {
     return testableBatchRiver((resolve, reject, write) => {
       write({ TableName: 'foo1', Item: 1 });
       write({ TableName: 'foo2', Item: 2 });
-      write({ TableName: 'foo3', Item: 3 });
+      write({ TableName: 'foo3', Key: 3 });
       write({ TableName: 'foo4', Item: 4 });
       write({ TableName: 'foo5', Item: 5 });
       write({ TableName: 'foo5', Item: 6 });
@@ -29,10 +29,10 @@ describe('batch_river', function () {
       resolve();
     }, 2, null).then((batches) => {
       expect(batches).to.deep.equal([
-        { foo1: [1], foo2: [2] },
-        { foo3: [3], foo4: [4] },
-        { foo5: [5, 6] },
-        { foo7: [7] },
+        { foo1: [{ PutRequest: { Item: 1 } }], foo2: [{ PutRequest: { Item: 2 } }] },
+        { foo3: [{ DeleteRequest: { Key: 3 } }], foo4: [{ PutRequest: { Item: 4 } }] },
+        { foo5: [{ PutRequest: { Item: 5 } }, { PutRequest: { Item: 6 } }] },
+        { foo7: [{ PutRequest: { Item: 7 } }] },
       ]);
     });
   });
@@ -52,10 +52,10 @@ describe('batch_river', function () {
         });
     }, 100, 100).then((batches) => {
       expect(batches).to.deep.equal([
-        { foo1: [1] },
-        { foo2: [2] },
-        { foo3: [3] },
-        { foo4: [4], foo5: [5] },
+        { foo1: [{ PutRequest: { Item: 1 } }] },
+        { foo2: [{ PutRequest: { Item: 2 } }] },
+        { foo3: [{ PutRequest: { Item: 3 } }] },
+        { foo4: [{ PutRequest: { Item: 4 } }], foo5: [{ PutRequest: { Item: 5 } }] },
       ]);
     });
   });
@@ -65,11 +65,15 @@ describe('batch_river', function () {
     const handler = (batch, feedback) => {
       if (callCount === 0) {
         callCount++;
-        expect(batch).to.deep.equal({ foo1: [1], foo2: [2], foo3: [3] });
+        expect(batch).to.deep.equal({
+          foo1: [{ PutRequest: { Item: 1 } }],
+          foo2: [{ PutRequest: { Item: 2 } }],
+          foo3: [{ PutRequest: { Item: 1 } }]
+        });
         feedback([{ TableName: 'newFoo', Item: 1 }]);
       } else {
         callCount++;
-        expect(batch).to.deep.equal({ newFoo: [1] });
+        expect(batch).to.deep.equal({ newFoo: [{ PutRequest: { Item: 1 } }] });
         feedback();
       }
     };

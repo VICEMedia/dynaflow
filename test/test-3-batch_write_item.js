@@ -58,9 +58,9 @@ describe('batch_write_item', function () {
             expect(res[0]).to.deep.equal({ id: { S: 'abc' }, timestamp: { N: '1' } });
           }))
         .then(resolve);
-    }), { Timeout: 100 }).consume(batch => batch.send().then((res) => {
+    }), { Timeout: 100 }).consume((res) => {
       expect(res).to.deep.equal({ Count: 1, UnprocessedItems: {} });
-    }));
+    });
   });
 
   // I don't believe there's a good way of testing UnprocessedItems logic with dynamodb
@@ -92,7 +92,7 @@ describe('batch_write_item', function () {
           write({ TableName: 'testing', Item: { id: { S: 'abc' }, timestamp: { N: `${i}` } } });
         });
         resolve();
-      })).consume(batch => batch.send())
+      })).drain()
         .then(() => {
           expect(this.requests).to.deep.equal([
             {
