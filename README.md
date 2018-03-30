@@ -50,7 +50,7 @@ Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResourc
 Given a [`river`](https://github.com/JoshuaWise/wise-river) of *request objects*, this method will group those requests into batches before sending them to DynamoDB. The returned `river` contains the results of each batch request that is sent.
 
 A *request object* can be either:
-* a [`PutItem`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property) request: `{ TableName, Item }`, or
+* a [`PutItem`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property) request: `{ TableName, Item }` or
 * a [`DeleteItem`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property) request: `{ TableName, Key }`
 
 Each result object has (in addition to the fields returned by DynamoDB) a `Count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `Count` field, indicating how many requests failed.
