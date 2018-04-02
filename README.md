@@ -6,7 +6,7 @@
   <strong>For all your flow needs</strong>
 </div>
 <div align="center">
-  A framework for creating dynamoDB oriented node applications
+  A module for creating dynamoDB oriented node applications
 </div>
 
 <br />
@@ -163,47 +163,28 @@ Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResourc
 
 ### .batchWriteItem(*requests*, [*params*]) -> *river*
 
-Given a [`river`](https://github.com/JoshuaWise/wise-river) of [PutRequests](#new-putrequesttablename-item---putrequest) and [DeleteRequests](#new-deleterequesttablename-key---deleterequest), returns a `river` of *batch objects* for making batch requests to DynamoDB.
+Given a [`river`](https://github.com/JoshuaWise/wise-river) of *request objects*, this method will group those requests into batches before sending them to DynamoDB. The returned `river` contains the results of each batch request that is sent.
 
-Each *batch object* has a `.send()` method for initiating a batch request, returning a promise for the request's result. Each result has (in addition to the fields returned by DynamoDB) a `count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `count` field, indicating how many requests failed.
+A *request object* can be either:
+* a [`PutItem`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property) request: `{ TableName, Item }` or
+* a [`DeleteItem`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property) request: `{ TableName, Key }`
+
+Each result object has (in addition to the fields returned by DynamoDB) a `Count` field, indicating how many requests were successfully processed. If a request results in an error, the associated `Error` object will also have a `Count` field, indicating how many requests failed.
 
 ```js
-const requests = [new PutRequest(...), new DeleteRequest(...)];
+const requests = [
+  { TableName: 'MyTable', Item: someData },
+  { TableName: 'MyTable', Item: otherData },
+];
 
 db.batchWriteItem(River.from(requests))
-  .map(batch => batch.send())
-  .consume(({ count }) => {
-    console.log(`Processed a batch of ${count} items!`);
+  .consume(({ Count }) => {
+    console.log(`Processed a batch of ${Count} items!`);
   });
 ```
 
 Each result object will always have an empty `UnprocessedItems` field, because this method automatically handles retries for you.
 
-If the `timeout` option is given, incomming requests will not be buffered for longer than the specified number of milliseconds.
+If the `Timeout` option is given, incomming requests will not be buffered for longer than the specified number of milliseconds.
 
-## new PutRequest(*tableName*, *item*) -> *PutRequest*
-
-Creates and returns an object for making `Put` requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
-
-```js
-const { PutRequest } = require('dynaflow');
-
-const put = new PutRequest('MyTable', {
-  myPrimaryKey: { B: 'hZn6NqO18x8=' },
-  foo: { S: 'abc' },
-  bar: { S: 'xyz' },
-  baz: { N: '123' }
-});
-```
-
-## new DeleteRequest(*tableName*, *key*) -> *DeleteRequest*
-
-Creates and returns an object for making `Delete` requests with [`.batchWriteItem()`](#batchwriteiteminput-params---river).
-
-```js
-const { DeleteRequest } = require('dynaflow');
-
-const del = new DeleteRequest('MyTable', {
-  myPrimaryKey: { B: 'hZn6NqO18x8=' }
-});
-```
+If the `Manual` option is `true`, the returned river will output the batch objects *without* sending them to DynamoDB. Each batch object has a `.send()` method which you MUST use to send execute the batch request, which returns a promise for the request's result.
