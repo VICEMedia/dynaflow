@@ -14,7 +14,7 @@ const defaultDynaflow = module.exports.dynaflow = new Dynaflow(dynamoConfig);
 
 // Returns a promise that resolves when the database has been cleared
 module.exports.clearDatabase = (dynaflow = defaultDynaflow) => {
-  return dynaflow.listTables({ itemsOnly: true }).consume(TableName => dynaflow.deleteTable({ TableName }));
+  return dynaflow.listTables({ ItemsOnly: true }).consume(TableName => dynaflow.deleteTable({ TableName }));
 };
 
 // Returns a promise that resolves when the table has been created

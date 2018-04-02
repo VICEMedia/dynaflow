@@ -4,12 +4,6 @@ const batchRiver = require('../lib/batch_river');
 const River = require('wise-river');
 const Promise = require('wise-promise');
 
-function Batchable(id, value) {
-  this.addToBatch = (batch) => {
-    batch[id] = value;
-  };
-}
-
 function testableBatchRiver(input, maxSize = 5, timeout = null, handler = null) {
   const batches = [];
   if (handler === null) {
@@ -25,43 +19,43 @@ function testableBatchRiver(input, maxSize = 5, timeout = null, handler = null) 
 describe('batch_river', function () {
   it('batches input', function () {
     return testableBatchRiver((resolve, reject, write) => {
-      write(new Batchable(1, 'foo1'));
-      write(new Batchable(2, 'foo2'));
-      write(new Batchable(3, 'foo3'));
-      write(new Batchable(4, 'foo4'));
-      write(new Batchable(5, 'foo5'));
-      write(new Batchable(6, 'foo6'));
-      write(new Batchable(7, 'foo7'));
+      write({ TableName: 'foo1', Item: 1 });
+      write({ TableName: 'foo2', Item: 2 });
+      write({ TableName: 'foo3', Key: 3 });
+      write({ TableName: 'foo4', Item: 4 });
+      write({ TableName: 'foo5', Item: 5 });
+      write({ TableName: 'foo5', Item: 6 });
+      write({ TableName: 'foo7', Item: 7 });
       resolve();
     }, 2, null).then((batches) => {
       expect(batches).to.deep.equal([
-        { 1: 'foo1', 2: 'foo2' },
-        { 3: 'foo3', 4: 'foo4' },
-        { 5: 'foo5', 6: 'foo6' },
-        { 7: 'foo7' },
+        { foo1: [{ PutRequest: { Item: 1 } }], foo2: [{ PutRequest: { Item: 2 } }] },
+        { foo3: [{ DeleteRequest: { Key: 3 } }], foo4: [{ PutRequest: { Item: 4 } }] },
+        { foo5: [{ PutRequest: { Item: 5 } }, { PutRequest: { Item: 6 } }] },
+        { foo7: [{ PutRequest: { Item: 7 } }] },
       ]);
     });
   });
 
   it('batches using a timeout', function () {
     return testableBatchRiver((resolve, reject, write) => {
-      write(new Batchable(1, 'foo1'));
+      write({ TableName: 'foo1', Item: 1 });
       return Promise.after(120)
-        .then(() => write(new Batchable(2, 'foo2')))
+        .then(() => write({ TableName: 'foo2', Item: 2 }))
         .then(() => Promise.after(120))
-        .then(() => write(new Batchable(3, 'foo3')))
+        .then(() => write({ TableName: 'foo3', Item: 3 }))
         .then(() => Promise.after(120))
         .then(() => {
-          write(new Batchable(4, 'foo4'));
-          write(new Batchable(5, 'foo5'));
+          write({ TableName: 'foo4', Item: 4 });
+          write({ TableName: 'foo5', Item: 5 });
           resolve();
         });
     }, 100, 100).then((batches) => {
       expect(batches).to.deep.equal([
-        { 1: 'foo1' },
-        { 2: 'foo2' },
-        { 3: 'foo3' },
-        { 4: 'foo4', 5: 'foo5' },
+        { foo1: [{ PutRequest: { Item: 1 } }] },
+        { foo2: [{ PutRequest: { Item: 2 } }] },
+        { foo3: [{ PutRequest: { Item: 3 } }] },
+        { foo4: [{ PutRequest: { Item: 4 } }], foo5: [{ PutRequest: { Item: 5 } }] },
       ]);
     });
   });
@@ -71,18 +65,22 @@ describe('batch_river', function () {
     const handler = (batch, feedback) => {
       if (callCount === 0) {
         callCount++;
-        expect(batch).to.deep.equal({ 1: 'foo1', 2: 'foo2', 3: 'foo3' });
-        feedback([new Batchable(1, 'newFoo')]);
+        expect(batch).to.deep.equal({
+          foo1: [{ PutRequest: { Item: 1 } }],
+          foo2: [{ PutRequest: { Item: 2 } }],
+          foo3: [{ PutRequest: { Item: 3 } }],
+        });
+        feedback([{ TableName: 'newFoo', Item: 1 }]);
       } else {
         callCount++;
-        expect(batch).to.deep.equal({ 1: 'newFoo' });
+        expect(batch).to.deep.equal({ newFoo: [{ PutRequest: { Item: 1 } }] });
         feedback();
       }
     };
     return testableBatchRiver((resolve, reject, write) => {
-      write(new Batchable(1, 'foo1'));
-      write(new Batchable(2, 'foo2'));
-      write(new Batchable(3, 'foo3'));
+      write({ TableName: 'foo1', Item: 1 });
+      write({ TableName: 'foo2', Item: 2 });
+      write({ TableName: 'foo3', Item: 3 });
       resolve();
     }, 5, null, handler).then(() => expect(callCount).to.equal(2));
   });

@@ -4,7 +4,6 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const River = require('wise-river');
 const Promise = require('wise-promise');
-const { PutRequest } = require('../lib/request');
 const wrap = require('../lib/batch_write_item');
 const { dynaflow, createTestingTable, range } = require('./helpers');
 
@@ -16,13 +15,31 @@ describe('batch_write_item', function () {
   it('sends batches of writes to dynamo', function () {
     return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
       range(50).forEach((i) => {
-        write(new PutRequest('testing', { id: { S: 'abc' }, timestamp: { N: `${i}` } }));
+        write({ TableName: 'testing', Item: { id: { S: 'abc' }, timestamp: { N: `${i}` } } });
       });
       resolve();
-    })).consume(batch => batch.send().then((res) => {
-      expect(res).to.deep.equal({ count: 25, UnprocessedItems: {} });
+    })).consume((res) => {
+      expect(res).to.deep.equal({ Count: 25, UnprocessedItems: {} });
+    })
+      .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all())
+      .then((res) => {
+        expect(res).to.have.lengthOf(50);
+        range(50).forEach((i) => {
+          expect(res[i]).to.deep.equal({ id: { S: 'abc' }, timestamp: { N: `${i}` } });
+        });
+      });
+  });
+
+  it('sends batches of writes to dynamo manually', function () {
+    return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
+      range(50).forEach((i) => {
+        write({ TableName: 'testing', Item: { id: { S: 'abc' }, timestamp: { N: `${i}` } } });
+      });
+      resolve();
+    }), { Manual: true }).consume(batch => batch.send().then((res) => {
+      expect(res).to.deep.equal({ Count: 25, UnprocessedItems: {} });
     }))
-      .then(() => dynaflow.scan({ TableName: 'testing', itemsOnly: true }).all())
+      .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all())
       .then((res) => {
         expect(res).to.have.lengthOf(50);
         range(50).forEach((i) => {
@@ -33,17 +50,17 @@ describe('batch_write_item', function () {
 
   it('sends batches of writes to dynamo using a timeout', function () {
     return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
-      write(new PutRequest('testing', { id: { S: 'abc' }, timestamp: { N: '1' } }));
+      write({ TableName: 'testing', Item: { id: { S: 'abc' }, timestamp: { N: '1' } } });
       return Promise.after(120)
-        .then(() => dynaflow.scan({ TableName: 'testing', itemsOnly: true }).all()
+        .then(() => dynaflow.scan({ TableName: 'testing', ItemsOnly: true }).all()
           .then((res) => {
             expect(res).to.have.lengthOf(1);
             expect(res[0]).to.deep.equal({ id: { S: 'abc' }, timestamp: { N: '1' } });
           }))
         .then(resolve);
-    }), { timeout: 100 }).consume(batch => batch.send().then((res) => {
-      expect(res).to.deep.equal({ count: 1, UnprocessedItems: {} });
-    }));
+    }), { Timeout: 100 }).consume((res) => {
+      expect(res).to.deep.equal({ Count: 1, UnprocessedItems: {} });
+    });
   });
 
   // I don't believe there's a good way of testing UnprocessedItems logic with dynamodb
@@ -72,10 +89,10 @@ describe('batch_write_item', function () {
     it('handles unprocessed items', function () {
       return dynaflow.batchWriteItem(new River((resolve, reject, write) => {
         range(10).forEach((i) => {
-          write(new PutRequest('testing', { id: { S: 'abc' }, timestamp: { N: `${i}` } }));
+          write({ TableName: 'testing', Item: { id: { S: 'abc' }, timestamp: { N: `${i}` } } });
         });
         resolve();
-      })).consume(batch => batch.send())
+      })).drain()
         .then(() => {
           expect(this.requests).to.deep.equal([
             {
