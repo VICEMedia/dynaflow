@@ -119,6 +119,7 @@ If the `itemsOnly` option is `true`, the `river` will contain each individual ta
 
 Similar to [`.query()`](#queryparams---river), but performs a [Scan operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
 
+<details><summary>SDK abstractions</summary>
 ### .getItem(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#getItem-property).
@@ -134,6 +135,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 ### .deleteItem(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property).
+</details>
 
 ## Metadata
 
