@@ -65,7 +65,9 @@ The most powerful use of Rivers in `dynaflow` is to provide an abstraction for D
 ### new Dynaflow(*options*)
 
 Creates and returns a new client for DynamoDB. The given `options` are used directly by the [`aws-sdk`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).
-
+ 
+ 
+ 
 ## Schema
 ### .listTables(*params*) -> *river*
 
@@ -89,7 +91,9 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#describeTable-property).
 </details>
-
+ 
+ 
+ 
 ## Data
 
 ### .query(*params*) -> *river*
@@ -140,7 +144,9 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property).
 </details>
-
+ 
+ 
+ 
 ## Metadata
 
 ### .listTagsOfResource(*params*) -> *river*
