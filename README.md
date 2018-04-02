@@ -62,12 +62,11 @@ Normally, when you query DynamoDB it responds with data broken up into pages. Th
 The most powerful use of Rivers in `dynaflow` is to provide an abstraction for DynamoDB’s batch write functionality. DynamoDB supports batch requests, allowing you to modify and delete items in different tables at the same time, which is useful for saving bandwidth. Normally, this is a complicated process involving “partial errors,” “retries,” and more. But with `dynaflow`, you can easily create a bandwidth-efficient firehose by just writing objects to a river — the complicated logic is handled for you, so you can easily operate on the results as they occur.
 
 ## API
-
-## Schema
 ### new Dynaflow(*options*)
 
 Creates and returns a new client for DynamoDB. The given `options` are used directly by the [`aws-sdk`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).
 
+## Schema
 ### .listTables(*params*) -> *river*
 
 Similar to [`.query()`](#queryparams---river), but performs a [ListTables operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property) instead.
@@ -89,22 +88,6 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#describeTable-property).
 
 ## Data
-
-### .getItem(*params*) -> *promise*
-
-A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#getItem-property).
-
-### .putItem(*params*) -> *promise*
-
-A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property).
-
-### .updateItem(*params*) -> *promise*
-
-A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateItem-property).
-
-### .deleteItem(*params*) -> *promise*
-
-A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property).
 
 ### .query(*params*) -> *river*
 
@@ -136,7 +119,27 @@ If the `itemsOnly` option is `true`, the `river` will contain each individual ta
 
 Similar to [`.query()`](#queryparams---river), but performs a [Scan operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
 
+### .getItem(*params*) -> *promise*
+
+A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#getItem-property).
+
+### .putItem(*params*) -> *promise*
+
+A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#putItem-property).
+
+### .updateItem(*params*) -> *promise*
+
+A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateItem-property).
+
+### .deleteItem(*params*) -> *promise*
+
+A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property).
+
 ## Metadata
+
+### .listTagsOfResource(*params*) -> *river*
+
+Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResource operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
 ### .describeLimits(*params*) -> *promise*
 
@@ -161,10 +164,6 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 ### .updateTimeToLive(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateTimeToLive-property).
-
-### .listTagsOfResource(*params*) -> *river*
-
-Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResource operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
 ## Requests
 
