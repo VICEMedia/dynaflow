@@ -17,7 +17,7 @@
 - [Features](#features)
 - [Example](#example)
 - [Architecture](#architecture)
-- [Rivers](#rivers)
+	- [Rivers](#rivers)
 - [API](#api)
 	- [Schema](#schema)
 	- [Data](#data)
