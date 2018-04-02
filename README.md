@@ -27,6 +27,8 @@
 ## Features
 - __CRUD data operations__
 - __tag and TTL metadata operations__
+<br />
+<br />
 
 ## Example
 ```bash
@@ -50,6 +52,8 @@ db.getItem({
 	//fill me in params
     });
 ```
+<br />
+<br />
 
 ## Architecture
 Dynaflow uses promises heavily.  In some cases, leverages a higher level promise paradigm referred to as a [`river`](https://github.com/JoshuaWise/wise-river).
@@ -65,9 +69,9 @@ The most powerful use of Rivers in `dynaflow` is to provide an abstraction for D
 ### new Dynaflow(*options*)
 
 Creates and returns a new client for DynamoDB. The given `options` are used directly by the [`aws-sdk`](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#constructor-property).
- 
- 
- 
+<br />
+<br />
+
 ## Schema
 ### .listTables(*params*) -> *river*
 
@@ -144,9 +148,9 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#deleteItem-property).
 </details>
- 
- 
- 
+<br />
+<br />
+
 ## Metadata
 
 ### .listTagsOfResource(*params*) -> *river*
@@ -179,6 +183,8 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateTimeToLive-property).
 </details>
+<br />
+<br />
 
 ## Requests
 
