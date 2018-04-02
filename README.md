@@ -17,6 +17,7 @@
 - [Features](#features)
 - [Example](#example)
 - [Architecture](#architecture)
+- [Rivers](#rivers)
 - [API](#api)
 	- [Schema](#schema)
 	- [Data](#data)
@@ -24,7 +25,6 @@
 	- [Requests](#requests)
 
 ## Features
-- __table schema management__
 - __CRUD data operations__
 - __tag and TTL metadata operations__
 
@@ -52,7 +52,14 @@ db.getItem({
 ```
 
 ## Architecture
-Dynaflow uses promises heavily.  In some cases, leverages a higher level promise paradigm referred to as a [`river`](https://github.com/JoshuaWise/wise-river).  The high level intention is to intelligently manage the common data flow operations in the framework.
+Dynaflow uses promises heavily.  In some cases, leverages a higher level promise paradigm referred to as a [`river`](https://github.com/JoshuaWise/wise-river).
+
+## Rivers
+In JavaScript, you might be familiar with the use of promises to deal with asynchronous events. A promise represents a single event — but what if we want to represent many events happening over time? This is what Rivers are for. Rivers are composable object streams (similar to ReactiveX Observables) that fit very nicely into the JavaScript ecosystem. Check out the [`wise-river`](https://github.com/JoshuaWise/wise-river) page to learn more about why they’re more powerful than traditional streams.
+
+Normally, when you query DynamoDB it responds with data broken up into pages. They do this for good reason, but typically in our applications we’d rather deal with the query results as if it was an iterable, or a stream of objects. Using Rivers, you can `.map()`, `.filter()`, and `.reduce()` over the results without dealing with pagination logic. It will automatically fetch new pages until you’re done using the river chain, at which point it will stop automatically.
+
+The most powerful use of Rivers in `dynaflow` is to provide an abstraction for DynamoDB’s batch write functionality. DynamoDB supports batch requests, allowing you to modify and delete items in different tables at the same time, which is useful for saving bandwidth. Normally, this is a complicated process involving “partial errors,” “retries,” and more. But with `dynaflow`, you can easily create a bandwidth-efficient firehose by just writing objects to a river — the complicated logic is handled for you, so you can easily operate on the results as they occur.
 
 ## API
 
