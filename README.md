@@ -27,7 +27,7 @@
 ## Features
 - __CRUD data operations__
 - __tag and TTL metadata operations__
-- batch operations using [rivers](#rivers)
+- __batch operations using [rivers](#rivers)__
 <br />
 <br />
 
