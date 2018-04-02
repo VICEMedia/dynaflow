@@ -71,6 +71,8 @@ Creates and returns a new client for DynamoDB. The given `options` are used dire
 
 Similar to [`.query()`](#queryparams---river), but performs a [ListTables operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTables-property) instead.
 
+<details><summary>SDK Abstractions</summary>
+
 ### .createTable(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#createTable-property).
@@ -86,6 +88,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 ### .describeTable(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#describeTable-property).
+</details>
 
 ## Data
 
@@ -119,7 +122,7 @@ If the `itemsOnly` option is `true`, the `river` will contain each individual ta
 
 Similar to [`.query()`](#queryparams---river), but performs a [Scan operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#scan-property) instead.
 
-<details><summary>__SDK abstractions__</summary>
+<details><summary>SDK Abstractions_</summary>
 
 ### .getItem(*params*) -> *promise*
 
@@ -144,6 +147,8 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResource operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
+<details><summary>__SDK Abstractions__</summary>
+
 ### .describeLimits(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#describeLimits-property).
@@ -167,6 +172,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 ### .updateTimeToLive(*params*) -> *promise*
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateTimeToLive-property).
+</details>
 
 ## Requests
 
