@@ -91,9 +91,9 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#describeTable-property).
 </details>
- 
- 
- 
+<br />
+<br />
+
 ## Data
 
 ### .query(*params*) -> *river*
