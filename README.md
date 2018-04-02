@@ -157,7 +157,7 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 
 Similar to [`.query()`](#queryparams---river), but performs a [ListTagsOfResource operation](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#listTagsOfResource-property) instead.
 
-<details><summary>__SDK Abstractions__</summary>
+<details><summary>_SDK Abstractions_</summary>
 
 ### .describeLimits(*params*) -> *promise*
 
