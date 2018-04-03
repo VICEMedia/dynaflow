@@ -9,15 +9,11 @@ workflows:
               ignore:
                 - master
       - build-node-7:
-          requires:
-            - build-node-8
           filters:
             branches:
               ignore:
                 - master
       - build-node-6:
-          requires:
-            - build-node-8
           filters:
             branches:
               ignore:
