@@ -9,6 +9,7 @@ const { dynaflow, createTestingTable, range } = require('./helpers');
 
 describe('batch_write_item', function () {
   beforeEach(() => {
+    this.setTimeout(10000);
     return createTestingTable({ TableName: 'testing' });
   });
 
