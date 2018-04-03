@@ -29,10 +29,6 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run:
-          name: Wait for Dynamo
-          command: |
-            timeout=0; until curl localhost:8000 > /dev/null 2>&1 || [ $timeout -eq 60 ]; do echo 'waiting for dynamo: '$timeout; sleep 2; timeout=$((timeout+1)); done
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
 
   build-node-7:
@@ -43,10 +39,6 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run:
-          name: Wait for Dynamo
-          command: |
-            timeout=0; until curl localhost:8000 > /dev/null 2>&1 || [ $timeout -eq 60 ]; do echo 'waiting for dynamo: '$timeout; sleep 2; timeout=$((timeout+1)); done
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
 
   build-node-6:
@@ -57,8 +49,4 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run:
-          name: Wait for Dynamo
-          command: |
-            timeout=0; until curl localhost:8000 > /dev/null 2>&1 || [ $timeout -eq 60 ]; do echo 'waiting for dynamo: '$timeout; sleep 2; timeout=$((timeout+1)); done
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
