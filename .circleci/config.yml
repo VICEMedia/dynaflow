@@ -24,7 +24,7 @@ jobs:
   build-node-8:
     docker:
       - image: node:8.9.3
-      - image: dwmkerr/dynamodb
+      - image: cnadiminti/dynamodb-local
     working_directory: ~/repo
     steps:
       - checkout
@@ -41,7 +41,7 @@ jobs:
   build-node-7:
     docker:
       - image: node:7.10.1
-      - image: dwmkerr/dynamodb
+      - image: cnadiminti/dynamodb-local
     working_directory: ~/repo
     steps:
       - checkout
@@ -58,7 +58,7 @@ jobs:
   build-node-6:
     docker:
       - image: node:6
-      - image: dwmkerr/dynamodb
+      - image: cnadiminti/dynamodb-local
     working_directory: ~/repo
     steps:
       - checkout
