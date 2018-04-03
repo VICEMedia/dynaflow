@@ -40,7 +40,7 @@ jobs:
 
   build-node-7:
     docker:
-      - image: node:7
+      - image: node:7.10.1
       - image: dwmkerr/dynamodb
     working_directory: ~/repo
     steps:
