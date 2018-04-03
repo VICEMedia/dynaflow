@@ -34,7 +34,7 @@ jobs:
       - run: npm install && npm install -g nyc
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
       - save_cache:
-          key: npm-dynaflow-{{ checksum "package.json" }}
+          key: npm-dynaflow-8-{{ checksum "package.json" }}
           paths:
             - "./node_modules"
 
@@ -51,7 +51,7 @@ jobs:
       - run: npm install && npm install -g nyc
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
       - save_cache:
-          key: npm-dynaflow-{{ checksum "package.json" }}
+          key: npm-dynaflow-7-{{ checksum "package.json" }}
           paths:
             - "./node_modules"
 
@@ -68,6 +68,6 @@ jobs:
       - run: npm install && npm install -g nyc
       - run: npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info
       - save_cache:
-          key: npm-dynaflow-{{ checksum "package.json" }}
+          key: npm-dynaflow-6-{{ checksum "package.json" }}
           paths:
             - "./node_modules"
