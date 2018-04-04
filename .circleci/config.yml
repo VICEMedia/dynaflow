@@ -38,7 +38,7 @@ jobs:
               echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
               sleep 2
             done
-            if [ $COUNTER == 3 ]; then exit(1); fi
+            if [ $COUNTER == 3 ]; then exit 1; fi
 
   build-node-7:
     docker:
@@ -57,7 +57,7 @@ jobs:
               echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
               sleep 2
             done
-            if [ $COUNTER == 3 ]; then exit(1); fi
+            if [ $COUNTER == 3 ]; then exit 1; fi
 
   build-node-6:
     docker:
@@ -76,4 +76,4 @@ jobs:
               echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
               sleep 2
             done
-            if [ $COUNTER == 3 ]; then exit(1); fi
+            if [ $COUNTER == 3 ]; then exit 1; fi
