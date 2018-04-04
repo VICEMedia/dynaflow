@@ -29,7 +29,12 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run: npm run coveralls
+      - run:
+          name: Coveralls
+          environment:
+              - COVERALLS_SERVICE_NAME: travis-pro
+          command: |
+            npm run coveralls
 
   build-node-7:
     docker:
