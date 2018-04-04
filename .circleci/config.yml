@@ -34,7 +34,7 @@ jobs:
           command: |
             until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
               echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep(5);
+              sleep 5
             done
 
   build-node-7:
@@ -50,7 +50,7 @@ jobs:
           command: |
             until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
               echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep(5)
+              sleep 5
             done
 
   build-node-6:
@@ -66,5 +66,5 @@ jobs:
           command: |
             until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
               echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep(5)
+              sleep 5
             done
