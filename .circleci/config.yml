@@ -30,11 +30,13 @@ jobs:
       - checkout
       - run: npm install && npm install -g nyc
       - run:
-          name: Test
+          name: Test with retry
           command: |
-            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
-              echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep 5
+            COUNTER=1
+            until [ $COUNTER == 3 ] || npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              COUNTER=$((COUNTER+1))
+              echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
+              sleep 2
             done
 
   build-node-7:
@@ -46,11 +48,13 @@ jobs:
       - checkout
       - run: npm install && npm install -g nyc
       - run:
-          name: Test
+          name: Test with retry
           command: |
-            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
-              echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep 5
+            COUNTER=1
+            until [ $COUNTER == 3 ] || npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              COUNTER=$((COUNTER+1))
+              echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
+              sleep 2
             done
 
   build-node-6:
@@ -62,9 +66,11 @@ jobs:
       - checkout
       - run: npm install && npm install -g nyc
       - run:
-          name: Test
+          name: Test with retry
           command: |
-            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
-              echo "Tests failed.  Retrying to account for dynamo's eventually consistency..."
-              sleep 5
+            COUNTER=1
+            until [ $COUNTER == 3 ] || npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              COUNTER=$((COUNTER+1))
+              echo "Tests failed.  Retrying to account for dynamo's eventual consistency..."
+              sleep 2
             done
