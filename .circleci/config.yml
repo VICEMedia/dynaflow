@@ -30,11 +30,12 @@ jobs:
       - checkout
       - run: npm install && npm install -g nyc
       - run:
-          name: Coveralls
-          environment:
-              - COVERALLS_SERVICE_NAME: travis-pro
+          name: Test
           command: |
-            npm run coveralls
+            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              echo Tests failed.  Retrying to account for dynamo's eventually consistency
+              sleep(5)
+            done
 
   build-node-7:
     docker:
@@ -44,7 +45,13 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run: npm run coveralls
+      - run:
+          name: Test
+          command: |
+            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              echo Tests failed.  Retrying to account for dynamo's eventually consistency
+              sleep(5)
+            done
 
   build-node-6:
     docker:
@@ -54,4 +61,10 @@ jobs:
     steps:
       - checkout
       - run: npm install && npm install -g nyc
-      - run: npm run coveralls
+      - run:
+          name: Test
+          command: |
+            until npm test && nyc report --reporter=lcov && cat ./coverage/lcov.info; do
+              echo Tests failed.  Retrying to account for dynamo's eventually consistency
+              sleep(5)
+            done
