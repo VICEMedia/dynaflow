@@ -21,7 +21,7 @@
   - [Reading](#reading)
   - [Writing](#writing)
   - [Schema](#reading)
-	- [Metadata](#metadata)
+  - [Metadata](#metadata)
 
 ## Features
 - Perform all standard DynamoDB operations
