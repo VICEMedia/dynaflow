@@ -245,5 +245,7 @@ The tests are made to be run against a [locally running DynamoDB service](https:
 
 The make variables `CONTAINER_NAME` (default `dynaflow-testing-dynamo`) and `BIND_PORT` (default `8000`) can be used to configure the name of the created container and the local port to use: `make test-docker CONTAINER_NAME=testing-dynaflow BIND_PORT=6545`
 
+[![asciicast](https://asciinema.org/a/Okedmpo9uTcmqe2Lly1lupPz9.png)](https://asciinema.org/a/Okedmpo9uTcmqe2Lly1lupPz9)
+
 # Contributing
 Contributions, big or small, are welcome. If you have a suggestion for a feature or an issue with the library please feel free to make a Github issue so that we can be made aware of it. If you have written something that you think would be a good addition we would love you to make a PR so that we can work together to see if the changes can be integrated.
