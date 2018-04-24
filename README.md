@@ -22,6 +22,9 @@
   - [Writing](#writing)
   - [Schema](#reading)
   - [Metadata](#metadata)
+- [Versioning](#versioning)
+- [Testing](#testing)
+- [Contributing](#contributing)
 
 ## Features
 - Perform all standard DynamoDB operations
@@ -221,3 +224,26 @@ A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.am
 A promisified version of the corresponding [`aws-sdk` method](http://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/DynamoDB.html#updateTimeToLive-property).
 
 </details>
+
+# Versioning
+We follow the [Semantic Versioning](https://semver.org/) convention where a version number is composed of `MAJOR.MINOR.PATCH` where we increment each with the following rules:
+
+* MAJOR version when you make incompatible API changes,
+* MINOR version when you add functionality in a backwards-compatible manner, and
+* PATCH version when you make backwards-compatible bug fixes.
+
+# Testing
+The tests are made to be run against a [locally running DynamoDB service](https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/DynamoDBLocal.html). To assist with spinning up a local instance several helper commands have been added to the [Makefile](./Makefile) using docker.
+
+`make docker-dynamo-start` - Will spin up an instance of a [dynamodb-local](https://hub.docker.com/r/cnadiminti/dynamodb-local/) image bound to a configurable local port.
+
+`make docker-dynamo-stop` - Will destroy the previously created docker instance.
+
+`make test` - Will run the test suite against the configurable local port.
+
+`make test-docker` - Will create the docker instance, run the tests, and destroy the docker instance.
+
+The make variables `CONTAINER_NAME` (default `dynaflow-testing-dynamo`) and `BIND_PORT` (default `8000`) can be used to configure the name of the created container and the local port to use: `make test-docker CONTAINER_NAME=testing-dynaflow BIND_PORT=6545`
+
+# Contributing
+Contributions, big or small, are welcome. If you have a suggestion for a feature or an issue with the library please feel free to make a Github issue so that we can be made aware of it. If you have written something that you think would be a good addition we would love you to make a PR so that we can work together to see if the changes can be integrated.
