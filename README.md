@@ -11,7 +11,7 @@
 
 <br />
 
-[![Build Status](https://travis-ci.org/VICEMedia/dynaflow.svg?branch=master)](https://travis-ci.org/VICEMedia/dynaflow) [![Coverage Status] (https://coveralls.io/repos/github/VICEMedia/dynaflow/badge.svg?branch=master&t=u7GnyW)](https://coveralls.io/github/VICEMedia/dynaflow?branch=master)
+[![Build Status](https://travis-ci.com/VICEMedia/dynaflow.svg?token=qd2FYJp3BGYQ6KLVSLyw&branch=master)](https://travis-ci.com/VICEMedia/dynaflow) [![Coverage Status](https://coveralls.io/repos/github/VICEMedia/dynaflow/badge.svg?branch=master&t=u7GnyW)](https://coveralls.io/github/VICEMedia/dynaflow?branch=master)
 
 ## Table of Contents
 - [Features](#features)
