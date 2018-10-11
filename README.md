@@ -48,7 +48,7 @@ await db.createTable({
 await db.putItem({
   TableName: 'MyTable',
   Item: {
-    id: { N: 1 },
+    id: { N: '1' },
     someValue: { S: 'hello world' },
   },
 });
@@ -56,7 +56,7 @@ await db.putItem({
 const response = await db.getItem({
   TableName: 'MyTable',
   Key: {
-    id: { N: 1 },
+    id: { N: '1' },
   },
 });
 
